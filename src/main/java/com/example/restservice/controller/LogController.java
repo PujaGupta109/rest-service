@@ -46,11 +46,11 @@ public class LogController {
     }
 
     @RequestMapping(value = "/countMatchAll/{value1}/{value2}/{ts1}/{ts2}", method = RequestMethod.GET, produces = "application/text")
-    public long countMatchAll(@RequestParam(value = "value1") String value1, @RequestParam(value = "value2") String value2,@RequestParam(value ="ts1", required = false) String ts1, @RequestParam(value ="ts2", required = false) String ts2) {
+    public ResponseEntity<String> countMatchAll(@RequestParam(value = "value1") String value1, @RequestParam(value = "value2") String value2,@RequestParam(value ="ts1", required = false) String ts1, @RequestParam(value ="ts2", required = false) String ts2) {
         if(ts1!=null &&ts2!=null) {
-            return logServiceImpl.countMatchAll(value1, value2, Timestamp.valueOf(ts1), Timestamp.valueOf(ts2));
+            return new ResponseEntity(logServiceImpl.countMatchAll(value1, value2, Timestamp.valueOf(ts1), Timestamp.valueOf(ts2)).toString(),HttpStatus.OK);
         }else {
-            return logServiceImpl.countMatchAll(value1, value2, null, null);
+            return new ResponseEntity(logServiceImpl.countMatchAll(value1, value2, null, null).toString(),HttpStatus.OK);
         }
     }
 }

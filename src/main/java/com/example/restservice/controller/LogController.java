@@ -35,7 +35,7 @@ public class LogController {
     }
 
 
-    @RequestMapping(value = "/countMatchAny/{value1}/{value2}/{ts1}/{ts2}", method = RequestMethod.GET, produces = "application/text")
+    @RequestMapping(value = "/countMatchAny", method = RequestMethod.GET, produces = "application/text")
     public ResponseEntity<String> countMatchAny(@RequestParam(value = "value1") String value1, @RequestParam(value = "value2") String value2 ,@RequestParam(value ="ts1", required = false) String ts1, @RequestParam(value ="ts2", required = false) String ts2) {
         if(ts1!=null &&ts2!=null) {
             return new ResponseEntity(logServiceImpl.countMatchAny(value1, value2, Timestamp.valueOf(ts1.substring(0, 23)), Timestamp.valueOf(ts2.substring(0, 23))).toString(), HttpStatus.OK);
@@ -45,7 +45,7 @@ public class LogController {
         }
     }
 
-    @RequestMapping(value = "/countMatchAll/{value1}/{value2}/{ts1}/{ts2}", method = RequestMethod.GET, produces = "application/text")
+    @RequestMapping(value = "/countMatchAll", method = RequestMethod.GET, produces = "application/text")
     public ResponseEntity<String> countMatchAll(@RequestParam(value = "value1") String value1, @RequestParam(value = "value2") String value2,@RequestParam(value ="ts1", required = false) String ts1, @RequestParam(value ="ts2", required = false) String ts2) {
         if(ts1!=null &&ts2!=null) {
             return new ResponseEntity(logServiceImpl.countMatchAll(value1, value2, Timestamp.valueOf(ts1), Timestamp.valueOf(ts2)).toString(),HttpStatus.OK);
